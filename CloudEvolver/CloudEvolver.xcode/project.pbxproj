@@ -1,0 +1,377 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 39;
+	objects = {
+		00E6828EFEC88D1A11DB9C8B = {
+			buildSettings = {
+			};
+			buildStyles = (
+				130F8B95001BDF0A11CA292A,
+				130F8B96001BDF0A11CA292A,
+			);
+			hasScannedForEncodings = 1;
+			isa = PBXProject;
+			mainGroup = 00E6828FFEC88D1A11DB9C8B;
+			productRefGroup = 0120612AFEC8923411DB9C8B;
+			projectDirPath = "";
+			targets = (
+				130F8B90001BDF0A11CA292A,
+			);
+		};
+		00E6828FFEC88D1A11DB9C8B = {
+			children = (
+				078F00CA07AB6917007DE82F,
+				074CC7D107AC601700C70F43,
+				0744C83007A9D835006FA987,
+				0744C7F407A8E136006FA987,
+				0744C73107A78E2A006FA987,
+				078F016C07AC5279007DE82F,
+				0744C69C07A774D0006FA987,
+				078F014A07AC4C2C007DE82F,
+				0744C5FF07A62109006FA987,
+				0744C5D307A5EF45006FA987,
+				010341B7FEEF030011DB9C8B,
+				6A8008AE02C7B68F0CC91562,
+				6A0644A002C7BD230CC91562,
+				0120612AFEC8923411DB9C8B,
+			);
+			isa = PBXGroup;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+//000
+//001
+//002
+//003
+//004
+//010
+//011
+//012
+//013
+//014
+		010341B7FEEF030011DB9C8B = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.java;
+			path = CloudEvolver.java;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		0120612AFEC8923411DB9C8B = {
+			children = (
+				6A9ED92C02B0286D0CC91562,
+			);
+			isa = PBXGroup;
+			name = Products;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+//010
+//011
+//012
+//013
+//014
+//070
+//071
+//072
+//073
+//074
+		0744C5D307A5EF45006FA987 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.java;
+			path = CloudEvolverFitnessFunction.java;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		0744C5D407A5EF45006FA987 = {
+			fileRef = 0744C5D307A5EF45006FA987;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		0744C5FF07A62109006FA987 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.java;
+			path = GrainDensityGene_old.java;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		0744C60007A62109006FA987 = {
+			fileRef = 0744C5FF07A62109006FA987;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		0744C69C07A774D0006FA987 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.java;
+			path = GrainSizeGene_old.java;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		0744C69D07A774D0006FA987 = {
+			fileRef = 0744C69C07A774D0006FA987;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		0744C73107A78E2A006FA987 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.java;
+			path = GrainSyncGene.java;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		0744C73207A78E2A006FA987 = {
+			fileRef = 0744C73107A78E2A006FA987;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		0744C7F407A8E136006FA987 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.java;
+			path = GrainWindowGene.java;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		0744C7F507A8E136006FA987 = {
+			fileRef = 0744C7F407A8E136006FA987;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		0744C83007A9D835006FA987 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.java;
+			path = GrainPanGene_old.java;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		0744C83107A9D835006FA987 = {
+			fileRef = 0744C83007A9D835006FA987;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		074CC7D107AC601700C70F43 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.java;
+			path = GrainPanGene.java;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		074CC7D207AC601700C70F43 = {
+			fileRef = 074CC7D107AC601700C70F43;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		078F00CA07AB6917007DE82F = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.java;
+			path = GrainPitchGene.java;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		078F00CB07AB6917007DE82F = {
+			fileRef = 078F00CA07AB6917007DE82F;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		078F014A07AC4C2C007DE82F = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.java;
+			path = GrainDensityGene.java;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		078F014B07AC4C2C007DE82F = {
+			fileRef = 078F014A07AC4C2C007DE82F;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		078F016C07AC5279007DE82F = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.java;
+			path = GrainSizeGene.java;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		078F016D07AC5279007DE82F = {
+			fileRef = 078F016C07AC5279007DE82F;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+//070
+//071
+//072
+//073
+//074
+//130
+//131
+//132
+//133
+//134
+		130F8B90001BDF0A11CA292A = {
+			buildPhases = (
+				130F8B91001BDF0A11CA292A,
+				130F8B93001BDF0A11CA292A,
+				130F8B94001BDF0A11CA292A,
+				6A0644BC02C7C42C0CC91562,
+			);
+			buildSettings = {
+				JAVA_ARCHIVE_CLASSES = YES;
+				JAVA_ARCHIVE_COMPRESSION = NO;
+				JAVA_ARCHIVE_TYPE = JAR;
+				JAVA_COMPILER = /usr/bin/javac;
+				JAVA_MANIFEST_FILE = Manifest;
+				JAVA_SOURCE_SUBDIR = .;
+				PRODUCT_NAME = CloudEvolver;
+				PURE_JAVA = YES;
+				REZ_EXECUTABLE = YES;
+			};
+			dependencies = (
+			);
+			isa = PBXToolTarget;
+			name = CloudEvolver;
+			productInstallPath = /usr/local/bin;
+			productName = CloudEvolver;
+			productReference = 6A9ED92C02B0286D0CC91562;
+		};
+		130F8B91001BDF0A11CA292A = {
+			buildActionMask = 2147483647;
+			files = (
+				130F8B92001BDF0A11CA292A,
+				0744C5D407A5EF45006FA987,
+				0744C60007A62109006FA987,
+				0744C69D07A774D0006FA987,
+				0744C73207A78E2A006FA987,
+				0744C7F507A8E136006FA987,
+				0744C83107A9D835006FA987,
+				078F00CB07AB6917007DE82F,
+				078F014B07AC4C2C007DE82F,
+				078F016D07AC5279007DE82F,
+				074CC7D207AC601700C70F43,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		130F8B92001BDF0A11CA292A = {
+			fileRef = 010341B7FEEF030011DB9C8B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		130F8B93001BDF0A11CA292A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXJavaArchiveBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		130F8B94001BDF0A11CA292A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		130F8B95001BDF0A11CA292A = {
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				ZERO_LINK = YES;
+			};
+			isa = PBXBuildStyle;
+			name = Development;
+		};
+		130F8B96001BDF0A11CA292A = {
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				ZERO_LINK = NO;
+			};
+			isa = PBXBuildStyle;
+			name = Deployment;
+		};
+//130
+//131
+//132
+//133
+//134
+//6A0
+//6A1
+//6A2
+//6A3
+//6A4
+		6A0644A002C7BD230CC91562 = {
+			children = (
+				6A0644AC02C7C26E0CC91562,
+			);
+			isa = PBXGroup;
+			name = Documentation;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		6A0644AC02C7C26E0CC91562 = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.man;
+			path = CloudEvolver.1;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		6A0644BC02C7C42C0CC91562 = {
+			buildActionMask = 8;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				6A0644BD02C7C4400CC91562,
+			);
+			isa = PBXCopyFilesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		6A0644BD02C7C4400CC91562 = {
+			fileRef = 6A0644AC02C7C26E0CC91562;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		6A8008AE02C7B68F0CC91562 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = text;
+			path = Manifest;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		6A9ED92C02B0286D0CC91562 = {
+			explicitFileType = "compiled.mach-o.executable";
+			includeInIndex = 0;
+			isa = PBXFileReference;
+			path = CloudEvolver.jar;
+			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+	};
+	rootObject = 00E6828EFEC88D1A11DB9C8B;
+}

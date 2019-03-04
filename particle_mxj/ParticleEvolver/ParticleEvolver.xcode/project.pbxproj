@@ -1,0 +1,266 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 39;
+	objects = {
+		07008CC007E36DE40050A11D = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.java;
+			path = ParticleConfig.java;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		07008CC107E36DE40050A11D = {
+			fileRef = 07008CC007E36DE40050A11D;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		07B2B65D07DA6000002AF33A = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.java;
+			path = ParticleEvolver.java;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		07B2B65E07DA6000002AF33A = {
+			fileRef = 07B2B65D07DA6000002AF33A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		07B2B66507DA6012002AF33A = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.java;
+			path = ParticleEvolverFitnessFunction.java;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		07B2B66607DA6012002AF33A = {
+			fileRef = 07B2B66507DA6012002AF33A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		07B2B67F07DA60D9002AF33A = {
+			explicitFileType = "compiled.mach-o.dylib";
+			includeInIndex = 0;
+			isa = PBXFileReference;
+			path = classes;
+			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+//070
+//071
+//072
+//073
+//074
+//150
+//151
+//152
+//153
+//154
+		15024AA405FFA94D0060F016 = {
+			children = (
+				07008CC007E36DE40050A11D,
+				07B2B65D07DA6000002AF33A,
+				07B2B66507DA6012002AF33A,
+				15BA779B05FFB38E00E1B09F,
+				520AB3EE07DBF94200ABFEBE,
+				15024AC305FFAB9E0060F016,
+				15024AB405FFAA620060F016,
+			);
+			isa = PBXGroup;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		15024AA605FFA94D0060F016 = {
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			isa = PBXBuildStyle;
+			name = Development;
+		};
+		15024AA705FFA94D0060F016 = {
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+			};
+			isa = PBXBuildStyle;
+			name = Deployment;
+		};
+		15024AA805FFA94D0060F016 = {
+			buildSettings = {
+			};
+			buildStyles = (
+				15024AA605FFA94D0060F016,
+				15024AA705FFA94D0060F016,
+			);
+			hasScannedForEncodings = 1;
+			isa = PBXProject;
+			mainGroup = 15024AA405FFA94D0060F016;
+			productRefGroup = 15024AB405FFAA620060F016;
+			projectDirPath = "";
+			targets = (
+				15024ABA05FFAA930060F016,
+			);
+		};
+		15024AB405FFAA620060F016 = {
+			children = (
+				07B2B67F07DA60D9002AF33A,
+			);
+			isa = PBXGroup;
+			name = Products;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		15024AB705FFAA930060F016 = {
+			buildActionMask = 2147483647;
+			files = (
+				07B2B65E07DA6000002AF33A,
+				07B2B66607DA6012002AF33A,
+				07008CC107E36DE40050A11D,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15024AB805FFAA930060F016 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXJavaArchiveBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15024AB905FFAA930060F016 = {
+			buildActionMask = 2147483647;
+			files = (
+				15024AC405FFAB9E0060F016,
+				520AB3EF07DBF94200ABFEBE,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15024ABA05FFAA930060F016 = {
+			buildPhases = (
+				15024AB705FFAA930060F016,
+				15024AB805FFAA930060F016,
+				15024AB905FFAA930060F016,
+				15024ABD05FFAAEF0060F016,
+				1576F8A905FFB5E200BB67E0,
+				15377A8205FFFD89003EAF12,
+			);
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				INSTALL_PATH = "/Library/Application Support/Cycling 74/java/classes";
+				JAVA_ARCHIVE_CLASSES = NO;
+				JAVA_ARCHIVE_TYPE = JAR;
+				JAVA_COMPILER = /usr/bin/javac;
+				JAVA_COMPILER_DEPRECATED_WARNINGS = YES;
+				JAVA_SOURCE_SUBDIR = .;
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOL_FLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = classes;
+				PURE_JAVA = YES;
+				REZ_EXECUTABLE = YES;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
+			};
+			dependencies = (
+			);
+			isa = PBXLibraryTarget;
+			name = ParticleEvolver;
+			productInstallPath = "/Library/Application Support/Cycling 74/java/classes";
+			productName = HelloWorld;
+			productReference = 07B2B67F07DA60D9002AF33A;
+		};
+		15024ABD05FFAAEF0060F016 = {
+			buildActionMask = 2147483647;
+			dstPath = "/Library/Application Support/Cycling '74/java/classes/";
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			isa = PBXCopyFilesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15024AC305FFAB9E0060F016 = {
+			isa = PBXFileReference;
+			lastKnownFileType = archive.jar;
+			name = max.jar;
+			path = "/Library/Application Support/Cycling '74/java/lib/max.jar";
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		15024AC405FFAB9E0060F016 = {
+			fileRef = 15024AC305FFAB9E0060F016;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		15377A8205FFFD89003EAF12 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			isa = PBXShellScriptBuildPhase;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rm -r build";
+		};
+		1576F8A905FFB5E200BB67E0 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			isa = PBXShellScriptBuildPhase;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp build/classes/*.class \"/Library/Application Support/Cycling '74/java/classes\"";
+		};
+		15BA779B05FFB38E00E1B09F = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = text;
+			path = readme.txt;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+//150
+//151
+//152
+//153
+//154
+//520
+//521
+//522
+//523
+//524
+		520AB3EE07DBF94200ABFEBE = {
+			isa = PBXFileReference;
+			lastKnownFileType = archive.jar;
+			path = jgap.jar;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		520AB3EF07DBF94200ABFEBE = {
+			fileRef = 520AB3EE07DBF94200ABFEBE;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+	};
+	rootObject = 15024AA805FFA94D0060F016;
+}

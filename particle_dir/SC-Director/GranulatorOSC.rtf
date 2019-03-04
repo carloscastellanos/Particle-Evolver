@@ -1,0 +1,422 @@
+{\rtf1\mac\ansicpg10000\cocoartf102
+{\fonttbl\f0\fnil\fcharset77 Monaco;}
+{\colortbl;\red255\green255\blue255;\red191\green0\blue0;\red0\green0\blue0;\red0\green0\blue191;
+\red0\green115\blue0;\red96\green96\blue96;}
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+
+\f0\fs20 \cf2 /////////////////////////////// Make Buffers - Define Synths\cf3 \
+\
+( \
+s = \cf4 Server\cf3 .internal;\
+\cf4 Server\cf3 .default = s;\
+s.boot;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\li1700\fi-1700\ql\qnatural
+\cf3 b = \cf4 Buffer\cf3 .new(s);\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
+\cf3 s.sendMsg(\cf5 \\b_allocRead\cf3 , 10, \cf6 "sounds/a11wlk01.wav"\cf3 );\
+s.sendMsg(\cf5 \\b_allocRead\cf3 , 9, \cf6 "sounds/many_bells_mono.aif"\cf3 );\
+s.sendMsg(\cf5 \\b_allocRead\cf3 , 8, \cf6 "sounds/beesmono_sm.aiff"\cf3 );\
+a = s.addr;\
+\
+d = \cf4 SynthDef\cf3 (\cf6 "sinegrain01"\cf3 , \{ \cf4 arg\cf3  bufNum = 10, trate = 2, pbrate = 1, centerPos = 0.5, dur = 0.1, pan = 0.5, amp = 0.1;\
+	\cf4 var\cf3  out;\
+	\
+	\cf2 //TGrains.ar(numChannels, trigger, bufnum, rate, centerPos, dur, pan, amp, interp)\cf3 \
+	\cf2 // trate = triger rate in CPS\cf3 \
+	\cf2 // pbrate = play back rate of the sound file as a muliple (i.e. 0.5 = 1/2 rate, 1 full rate, and 2 = twice the rate)\cf3 \
+	\cf2 // centerPos = a float between 0 and 1\cf3 \
+	\cf2 // dur = grain duration\cf3 \
+	\cf2 // pan = pan -1 -> 1\cf3 \
+	\cf2 // amp = 0.0 -> 1.0\cf3 \
+	out = \cf4 TGrains\cf3 .ar(2, \cf4 Impulse\cf3 .ar(trate), bufNum, pbrate, centerPos * \cf4 BufDur\cf3 .kr(bufNum), dur, pan, amp, 2);\
+	\cf4 Out\cf3 .ar(0, out);\
+	\
+	\});\
+	\
+d.load(s);\
+\
+d = \cf4 Synth\cf3 .new(\cf6 "sinegrain01"\cf3 );\
+d.run(\cf4 false\cf3 );\
+)\
+\
+\cf2 //b.free;\cf3 \
+\
+\cf2 /////////////////////////////// GLOBAL PARAMETER ARRAY\cf3 \
+(\
+\cf2 //This how the View communicates with the controller. \cf3 \
+\cf2 // Control values from user input are written to the ~paramArray,\cf3 \
+\cf2 // which are then read by the Grain Scheduler below.\cf3 \
+\cf2 //bufNum, trate = 2, pbrate = 1, centerPos = 0.5, dur = 0.1, pan = 0.5, amp = 0.1 ;\cf3 \
+~paramArray = [8, 10, 50.0, 200.0, -1.0, 1.0, 0.5, 0.8, 0.1, 0.1, 1.0, -1.0, 0.25, 0.5];\
+~paramArray.postln; \cf2 //for testing\cf3 \
+\
+\
+\cf2 //n = NetAddr("127.0.0.1", 12000);\cf3 \
+\
+~routine = \cf4 Routine\cf3 (\{\
+			\cf4 var\cf3  lowerBuf, upperBuf;	\
+			\cf4 var\cf3  lowerDisp, upperDisp, lowerpbrate, upperpbrate, lowercenterPos;\
+			\cf4 var\cf3  uppercenterPos, lowerdur, upperdur, lowerAmp, upperAmp, lowerPan, upperPan;\
+			\cf4 var\cf3  bufNum, dispersion, trate, pbrate, centerPos, dur, pan, amp;\
+	\
+			\cf2 //Run indefinitely\cf3 \
+			\cf4 inf\cf3 .do(\{\
+				\cf2 //The ~paramArray is polled before each grain is made\cf3 \
+				lowerBuf = ~paramArray.at(0);\
+				upperBuf = ~paramArray.at(1);\
+				lowerDisp = ~paramArray.at(2);\
+				upperDisp = ~paramArray.at(3);\
+				lowerpbrate = ~paramArray.at(4);\
+				upperpbrate = ~paramArray.at(5);\
+				lowercenterPos = ~paramArray.at(6);\
+				uppercenterPos = ~paramArray.at(7);\
+				lowerdur = ~paramArray.at(8);\
+				upperdur = ~paramArray.at(9);\
+				lowerPan = ~paramArray.at(10);\
+				upperPan = ~paramArray.at(11);\
+				lowerAmp = ~paramArray.at(12);\
+				upperAmp = ~paramArray.at(13);\
+				\
+				\
+							\
+				\cf2 //Grains are created by calling the 'Model's' Synth Definition here:\cf3 \
+			\
+					\cf2 //Parameters are created by random number generators with a given range.\cf3 \
+					\cf2 // If the range values are equal, then the output will be deterministic\cf3 \
+					\
+					\
+					bufNum =lowerBuf.rrand(upperBuf);\
+				 	dispersion = lowerDisp.rrand(upperDisp);\
+					pbrate = lowerpbrate.rrand(upperpbrate);\
+					centerPos = lowercenterPos.rrand(uppercenterPos);\
+				     dur = lowerdur.rrand(upperdur);\
+					pan = lowerPan.rrand(upperPan);\
+					amp = lowerAmp.rrand(upperAmp);\
+					\
+					d.set( \cf5 \\bufNum\cf3 , bufNum );\
+					d.set( \cf5 \\trate\cf3 , dispersion );\
+					d.set( \cf5 \\pbrate\cf3 , pbrate );\
+					d.set( \cf5 \\centerPos\cf3 , centerPos );\
+				     d.set( \cf5 \\dur\cf3 , dur );\
+					d.set( \cf5 \\pan\cf3 , pan );\
+					d.set( \cf5 \\amp\cf3 , amp );\
+				\
+				\cf2 //	n.sendMsg("/particles/numP", dispersion * 2);//density\cf3 \
+				\cf2 //	n.sendMsg("/particles/speed", ((pbrate + 2)/4) * 300);//playback rate\cf3 \
+				\cf2 // freq v. pan v amp - pushes against gravity\cf3 \
+					n.sendBundle(0.2, [\cf6 "/particles/path"\cf3 , (abs(pan - 1) - 1) * 20, (abs(pbrate) * 20) - 20, dispersion/10]);				\cf2 //	n.sendMsg("/particles/pathStrength", amp); // how much push from path\cf3 \
+					\cf2 // buffer position range abs(lowercenterPos - uppercenterPos)\cf3 \
+				\cf2 //	n.sendMsg("/particles/drag", abs(lowercenterPos - uppercenterPos));\cf3 \
+					n.sendBundle(0.2, [\cf6 "/particles/gravity"\cf3 , 4, 4, 4]);\cf2 //(freq v. pan v amp) exerts force on path\cf3 \
+				\cf2 //	n.sendMsg("/particles/life", dur * 9000);//grain duration\cf3 \
+				\
+			\cf2 /*		n.sendMsg("/particles/numP", 250);//density\
+					n.sendMsg("/particles/speed", 88);//playback rate\
+					n.sendBundle(0.2, ["/particles/path", 1.91, 0.19, -15.13]);// freq v. pan v amp - pushes against gravity\
+					n.sendMsg("/particles/pathStrength", 0.002); // how much push from path\
+					n.sendMsg("/particles/drag", 1);// buffer position range abs(lowercenterPos - uppercenterPos)\
+					n.sendBundle(0.2, ["/particles/gravity", 4.05, -50.48, 8.0]);//(freq v. pan v amp) exerts force on path\
+					n.sendMsg("/particles/life", 9000);//grain duration\
+					color*/\cf3 \
+\
+				\cf2 //the wait time\cf3 \
+				0.1.yield;\
+			\});\
+		\
+		\});\
+)\
+\
+\
+\cf2 ///////////////////////////MIDI Mapping\cf3 \
+\
+\cf2 //~paramArray.put(paramPos2, mapping.asSpec.map(upperSlide.value))\cf3 \
+\cf4 MIDIIn\cf3 .connect; 	\cf2 // init for one port midi interface\cf3 \
+\
+(\
+\cf4 MIDIIn\cf3 .control = \{ \cf4 arg\cf3  src, chan, num, val; \
+				\cf4 var\cf3  dispersion, pbrate, bufPosition, grainDur, pan, amp;	\
+				[chan,num,val].postln; \
+				\
+				dispersion = ((val/127) * 1000) + 10;\
+				pbrate = ((val/127) * 4) - 2;\
+				bufPosition = val/127;\
+				grainDur = val/127 + 0.01;\
+				pan = ((abs((val/128 + 0.01) - 1) ) * 2) - 1;\
+				amp =val/127;\
+\
+			if ( num == 89 )\{	\cf2 /*lowerBuf*/\cf3   ~paramArray.put(0, 8); \};\
+			if ( num == 90 )\{	\cf2 /*upperBuf*/\cf3   ~paramArray.put(1, 10); \};\
+			if ( num == 91 )\{	\cf2 /*lowerDisp*/\cf3   ~paramArray.put(2, dispersion); \};\
+			if ( num == 92 )\{	\cf2 /*upperDisp*/\cf3   ~paramArray.put(3, dispersion); \};\
+			if ( num == 93 )\{	\cf2 /*lowerpbrate*/\cf3   ~paramArray.put(4, pbrate); \};\
+			if ( num == 94 )\{	\cf2 /*upperpbrate*/\cf3   ~paramArray.put(5, pbrate); \};\
+			if ( num == 95 )\{	\cf2 /*lowercenterPos*/\cf3   ~paramArray.put(6, bufPosition); \};\
+			if ( num == 96 )\{	\cf2 /*uppercenterPos*/\cf3   ~paramArray.put(7, bufPosition); \};\
+			if ( num == 97 )\{	\cf2 /*lowerdur*/\cf3   ~paramArray.put(8, grainDur); \};\
+			if ( num == 98 )\{	\cf2 /*upperdur*/\cf3   ~paramArray.put(9, grainDur); \};\
+			if ( num == 99 )\{	\cf2 /*lowerPan*/\cf3   ~paramArray.put(10, pan); \};\
+			if ( num == 100 )\{	\cf2 /*upperPan*/\cf3   ~paramArray.put(11, pan); \};\
+			if ( num == 101 )\{	\cf2 /*lowerAmp*/\cf3   ~paramArray.put(12, amp); \};\
+			if ( num == 102 )\{	\cf2 /*upperAmp*/\cf3   ~paramArray.put(13, amp); \};\
+\
+			\cf2 //play the Routine			\cf3 \
+			if ( num == 107 )\{ \
+							if (val == 127, \{\
+									\cf4 SystemClock\cf3 .play(~routine);\
+									if (d.isRunning, \{\cf4 nil\cf3 \},\{d = \cf4 Synth\cf3 .new(\cf6 "sinegrain01"\cf3 )\});\
+									\
+									\}, \{\
+									\cf4 SystemClock\cf3 .clear(~routine); \
+									d.free;\
+									\}); \
+								\};\
+					\
+				\};						\
+)\
+\
+\cf2 /////////////////GUI\cf3 \
+\
+(\
+\cf4 var\cf3  slider1, slider2, slider3, slider4, slider5, slider6, slider7, spacing;\
+\cf4 var\cf3  numBoxLo1, numBoxHi1, numBoxLo2, numBoxHi2, numBoxLo3, numBoxHi3, numBoxLo4, numBoxHi4;\
+\cf4 var\cf3  numBoxLo5, numBoxHi5, numBoxLo6, numBoxHi6, numBoxLo7, numBoxHi7;\
+\
+w = \cf4 SCWindow\cf3 (\cf6 "grain control"\cf3 , \cf4 Rect\cf3 (20, 600, 250, 625));\
+\
+\cf2 // add a button to start and stop the sound.\cf3 \
+b = \cf4 SCButton\cf3 (w, \cf4 Rect\cf3 (150, 15, 70, 30));\
+b.states = [[\cf6 "Start"\cf3 , \cf4 Color\cf3 .black, \cf4 Color\cf3 .green],[\cf6 "Stop"\cf3 , \cf4 Color\cf3 .white, \cf4 Color\cf3 .red]];\
+b.action = \{\cf4 |view|\cf3 \
+		if (view.value == 1) \{\
+			\cf4 SystemClock\cf3 .play(~routine);\
+			if (d.isRunning, \{\cf4 nil\cf3 \},\{d = \cf4 Synth\cf3 .new(\cf6 "sinegrain01"\cf3 )\});\
+		\};\
+		if (view.value == 0) \{\
+			\cf4 SystemClock\cf3 .clear(~routine);\
+			d.free;\
+		\};\
+\};\
+\
+spacing = 80;\
+\
+\cf2 /////Sliders\cf3 \
+slider1 = \cf4 SCRangeSlider\cf3 (w, \cf4 Rect\cf3 (20, 1 * spacing, 200, 30));\
+slider2 = \cf4 SCRangeSlider\cf3 (w, \cf4 Rect\cf3 (20, 2 * spacing, 200, 30));\
+slider3 = \cf4 SCRangeSlider\cf3 (w, \cf4 Rect\cf3 (20, 3 * spacing, 200, 30));\
+slider4 = \cf4 SCRangeSlider\cf3 (w, \cf4 Rect\cf3 (20, 4 * spacing, 200, 30));\
+slider5 = \cf4 SCRangeSlider\cf3 (w, \cf4 Rect\cf3 (20, 5 * spacing, 200, 30));\
+slider6 = \cf4 SCRangeSlider\cf3 (w, \cf4 Rect\cf3 (20, 6 * spacing, 200, 30));\
+slider7 = \cf4 SCRangeSlider\cf3 (w, \cf4 Rect\cf3 (20, 7 * spacing, 200, 30));\
+\
+\cf2 ///Number Boxes\cf3 \
+ numBoxLo1 = \cf4 SCNumberBox\cf3 (w, \cf4 Rect\cf3 (70, 1 * spacing + 32, 45, 15), 50, 15);\
+ numBoxHi1 = \cf4 SCNumberBox\cf3 (w, \cf4 Rect\cf3 (120, 1 * spacing + 32, 45, 15), 50, 15);\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (57, 1 * spacing + 25, 30, 30)).string = \cf6 "lo"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (170, 1 * spacing + 25, 30, 30)).string = \cf6 "hi"\cf3 ;\
+ \
+ numBoxLo2 = \cf4 SCNumberBox\cf3 (w, \cf4 Rect\cf3 (70, 2 * spacing + 32, 45, 15), 50, 15);\
+ numBoxHi2 = \cf4 SCNumberBox\cf3 (w, \cf4 Rect\cf3 (120, 2 * spacing + 32, 45, 15), 50, 15);\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (57, 2 * spacing + 25, 30, 30)).string = \cf6 "lo"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (170, 2 * spacing + 25, 30, 30)).string = \cf6 "hi"\cf3 ;\
+\
+ numBoxLo3 = \cf4 SCNumberBox\cf3 (w, \cf4 Rect\cf3 (70, 3 * spacing + 32, 45, 15), 50, 15);\
+ numBoxHi3 = \cf4 SCNumberBox\cf3 (w, \cf4 Rect\cf3 (120, 3 * spacing + 32, 45, 15), 50, 15);\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (57, 3 * spacing + 25, 30, 30)).string = \cf6 "lo"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (170, 3 * spacing + 25, 30, 30)).string = \cf6 "hi"\cf3 ;\
+\
+\
+ numBoxLo4 = \cf4 SCNumberBox\cf3 (w, \cf4 Rect\cf3 (70, 4 * spacing + 32, 45, 15), 50, 15);\
+ numBoxHi4 = \cf4 SCNumberBox\cf3 (w, \cf4 Rect\cf3 (120, 4 * spacing + 32, 45, 15), 50, 15);\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (57, 4 * spacing + 25, 30, 30)).string = \cf6 "lo"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (170, 4 * spacing + 25, 30, 30)).string = \cf6 "hi"\cf3 ;\
+\
+\
+ numBoxLo5 = \cf4 SCNumberBox\cf3 (w, \cf4 Rect\cf3 (70, 5 * spacing + 32, 45, 15), 50, 15);\
+ numBoxHi5 = \cf4 SCNumberBox\cf3 (w, \cf4 Rect\cf3 (120, 5 * spacing + 32, 45, 15), 50, 15);\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (57, 5 * spacing + 25, 30, 30)).string = \cf6 "lo"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (170, 5 * spacing + 25, 30, 30)).string = \cf6 "hi"\cf3 ;\
+\
+\
+ numBoxLo6 = \cf4 SCNumberBox\cf3 (w, \cf4 Rect\cf3 (70, 6 * spacing + 32, 45, 15), 50, 15);\
+ numBoxHi6 = \cf4 SCNumberBox\cf3 (w, \cf4 Rect\cf3 (120, 6 * spacing + 32, 45, 15), 50, 15);\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (57, 6 * spacing + 25, 30, 30)).string = \cf6 "lo"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (170, 6 * spacing + 25, 30, 30)).string = \cf6 "hi"\cf3 ;\
+\
+ numBoxLo7 = \cf4 SCNumberBox\cf3 (w, \cf4 Rect\cf3 (70, 7 * spacing + 32, 45, 15), 50, 15);\
+ numBoxHi7 = \cf4 SCNumberBox\cf3 (w, \cf4 Rect\cf3 (120, 7 * spacing + 32, 45, 15), 50, 15);\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (57, 7 * spacing + 25, 30, 30)).string = \cf6 "lo"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (170, 7 * spacing + 25, 30, 30)).string = \cf6 "hi"\cf3 ;\
+\
+\cf2 /////Labels\cf3 \
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (20, 1 * spacing - 25, 200, 30)).string = \cf6 "Buffer Number"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (20, 1 * spacing + 25, 30, 30)).string = \cf6 "1"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (210, 1 * spacing + 25, 30, 30)).string = \cf6 "10"\cf3 ;\
+ \
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (20, 2 * spacing - 25, 200, 30)).string = \cf6 "Grain Dispersion"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (20, 2 * spacing + 25, 30, 30)).string = \cf6 "10"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (195, 2 * spacing + 25, 30, 30)).string = \cf6 "1000"\cf3 ;\
+ \
+  \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (20, 3 * spacing - 25, 200, 30)).string = \cf6 "Play Back Rate"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (20, 3 * spacing + 25, 30, 30)).string = \cf6 "-2"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (215, 3 * spacing + 25, 30, 30)).string = \cf6 "2"\cf3 ;\
+ \
+  \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (20, 4 * spacing - 25, 200, 30)).string = \cf6 "Buffer Center Position"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (20, 4 * spacing + 25, 30, 30)).string = \cf6 "0"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (215, 4 * spacing + 25, 30, 30)).string = \cf6 "1"\cf3 ;\
+ \
+  \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (20, 5 * spacing - 25, 200, 30)).string = \cf6 "Grain Duration"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (20, 5 * spacing + 25, 30, 30)).string = \cf6 "0.01"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (215, 5 * spacing + 25, 30, 30)).string = \cf6 "1"\cf3 ;\
+ \
+  \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (20, 6 * spacing - 25, 200, 30)).string = \cf6 "Pan"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (20, 6 * spacing + 25, 30, 30)).string = \cf6 "-1"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (215, 6 * spacing + 25, 30, 30)).string = \cf6 "1"\cf3 ;\
+ \
+  \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (20, 7 * spacing - 25, 200, 30)).string = \cf6 "Amplitude"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (20, 7 * spacing + 25, 30, 30)).string = \cf6 "0"\cf3 ;\
+ \cf4 SCStaticText\cf3 (w, \cf4 Rect\cf3 (215, 7 * spacing + 25, 30, 30)).string = \cf6 "1"\cf3 ;\
+\
+\cf2 /////GUI Mapping\cf3 \
+				slider1.lo_( (~paramArray.at(0)/ 10) );\cf2 /*lowerBuf*/\cf3 \
+				slider1.hi_( (~paramArray.at(1)/ 10) );\cf2 /*upperBuf*/\cf3  \
+				slider2.lo_( (~paramArray.at(2) - 10)/ 1000 );\cf2 /*lowerDisp*/\cf3  \
+				slider2.hi_( (~paramArray.at(3) - 10)/ 1000 );\cf2 /*upperDisp*/\cf3 \
+				slider3.lo_( (~paramArray.at(4) + 2)/ 4 );\cf2 /*lowerpbrate*/\cf3 \
+				slider3.hi_( (~paramArray.at(5) + 2)/ 4 );\cf2 /*upperpbrate*/\cf3 \
+				slider4.lo_( ~paramArray.at(6) );\cf2 /*lowercenterPos*/\cf3 \
+				slider4.hi_( ~paramArray.at(7) );\cf2 /*uppercenterPos*/\cf3 \
+				slider5.lo_( ~paramArray.at(8) - 0.01 );\cf2 /*lowerdur*/\cf3 \
+				slider5.hi_( ~paramArray.at(9) - 0.01 );\cf2 /*upperdur*/\cf3 \
+				slider6.lo_( (abs((~paramArray.at(10)) - 1) ) / 2 );\cf2 /*lowerPan*/\cf3 \
+				slider6.hi_( (abs((~paramArray.at(11)) - 1) ) / 2 );\cf2 /*upperPan*/\cf3 \
+				slider7.lo_( ~paramArray.at(12) );\cf2 /*lowerAmp*/\cf3 \
+				slider7.hi_( ~paramArray.at(13) );\cf2 /*upperAmp*/\cf3 \
+				\
+				numBoxLo1.value_( ~paramArray.at(0) );\cf2 /*lowerBuf*/\cf3 \
+				numBoxHi1.value_( ~paramArray.at(1) );\cf2 /*upperBuf*/\cf3  \
+				numBoxLo2.value_( (~paramArray.at(2) - 10)/ 1000 );\cf2 /*lowerDisp*/\cf3 \
+				numBoxHi2.value_( (~paramArray.at(3) - 10)/ 1000 );\cf2 /*upperDisp*/\cf3 \
+				numBoxLo3.value_( (~paramArray.at(4) + 2)/ 4 );\cf2 /*lowerpbrate*/\cf3 \
+				numBoxHi3.value_( (~paramArray.at(5) + 2)/ 4 );\cf2 /*upperpbrate*/\cf3 \
+				numBoxLo4.value_( ~paramArray.at(6) );\cf2 /*lowercenterPos*/\cf3 \
+				numBoxHi4.value_( ~paramArray.at(7) );\cf2 /*uppercenterPos*/\cf3 \
+				numBoxLo5.value_( ~paramArray.at(8) - 0.01 );\cf2 /*lowerdur*/\cf3 \
+				numBoxHi5.value_( ~paramArray.at(9) - 0.01 );\cf2 /*upperdur*/\cf3 \
+				numBoxLo6.value_( (abs((~paramArray.at(10)) - 1) ) / 2 );\cf2 /*lowerPan*/\cf3 \
+				numBoxHi6.value_( (abs((~paramArray.at(11)) - 1) ) / 2 );\cf2 /*upperPan*/\cf3 \
+				numBoxLo7.value_( ~paramArray.at(12) );\cf2 /*lowerAmp*/\cf3 \
+				numBoxHi7.value_( ~paramArray.at(13) );\cf2 /*upperAmp*/\cf3 \
+				\
+			slider1.action = \{	\cf2 /*lowerBuf*/\cf3   ~paramArray.put(0, 8); \
+							\
+							numBoxLo1.value = ([0, 10, \cf5 \\linear\cf3 , 1, ~paramArray.at(0)])\
+							.asSpec.map(slider1.lo);\
+							\
+							\cf2 /*upperBuf*/\cf3   ~paramArray.put(1, 10); \
+							\
+							numBoxHi1.value = ([0, 10, \cf5 \\linear\cf3 , 1, ~paramArray.at(1)])\
+							.asSpec.map(slider1.hi);\
+							\};\
+			\
+			slider2.action = \{	\cf2 /*lowerDisp*/\cf3   ~paramArray.put(2, (slider2.lo.value * 1000) + 10); \
+							\
+							numBoxLo2.value = ([10.0, 1010, \cf5 \\exponential\cf3 , 0.001, (~paramArray.at(2) - 10)/ 1000])\
+							.asSpec.map(slider2.lo);\
+							\
+							\cf2 /*upperDisp*/\cf3   ~paramArray.put(3, (slider2.hi.value * 1000) + 10); \
+							\
+							numBoxHi2.value = ([10.0, 1010, \cf5 \\exponential\cf3 , 0.001, (~paramArray.at(3) - 10)/ 1000])\
+							.asSpec.map(slider2.hi);\
+							\};\
+\
+			slider3.action = \{	\cf2 /*lowerpbrate*/\cf3   ~paramArray.put(4, ((slider3.lo.value) * 4) - 2); \
+							\
+							numBoxLo3.value = ([-2.0, 2.0, \cf5 \\linear\cf3 , 0.001, (~paramArray.at(4) + 2)/ 4])\
+							.asSpec.map(slider3.lo);\
+							\
+							\cf2 /*upperpbrate*/\cf3   ~paramArray.put(5, ((slider3.hi.value) * 4) - 2); \
+							\
+							numBoxHi3.value = ([-2.0, 2.0, \cf5 \\linear\cf3 , 0.001, (~paramArray.at(5) + 2)/ 4])\
+							.asSpec.map(slider3.hi);\
+							\};\
+			\
+			slider4.action = \{	\cf2 /*lowercenterPos*/\cf3   ~paramArray.put(6, slider4.lo.value);\
+			\
+							numBoxLo4.value = ([0.0, 1, \cf5 \\linear\cf3 , 0.001, ~paramArray.at(6)])\
+							.asSpec.map(slider4.lo);\
+							\
+							\cf2 /*uppercenterPos*/\cf3   ~paramArray.put(7, slider4.hi.value); \
+							\
+							numBoxHi4.value = ([0.0, 1, \cf5 \\linear\cf3 , 0.001, ~paramArray.at(7)])\
+							.asSpec.map(slider4.hi);\
+							\};\
+			\
+			slider5.action = \{	\cf2 /*lowerdur*/\cf3   ~paramArray.put(8, slider5.lo.value + 0.01); \
+							\
+							numBoxLo5.value = ([0.0, 1, \cf5 \\linear\cf3 , 0.001, ~paramArray.at(8) - 0.01])\
+							.asSpec.map(slider5.lo);\
+							\
+							\cf2 /*upperdur*/\cf3   ~paramArray.put(9, slider5.hi.value + 0.01); \
+							\
+							numBoxHi5.value = ([0.0, 1, \cf5 \\linear\cf3 , 0.001, ~paramArray.at(9) - 0.01])\
+							.asSpec.map(slider5.hi);\
+							\};\
+							\
+			slider6.action = \{	\cf2 /*lowerPan*/\cf3   ~paramArray.put(10, ((abs((slider6.lo.value + 0.01) - 1) ) * 2) - 1);\
+							 \
+							numBoxLo6.value = ([-1.0, 1.0, \cf5 \\linear\cf3 , 0.001, (abs((~paramArray.at(10)) - 1) ) / 2])\
+							.asSpec.map(slider6.lo);\
+							\
+							\cf2 /*upperPan*/\cf3   ~paramArray.put(11, ((abs((slider6.hi.value + 0.01) - 1) ) * 2) - 1);\
+							\
+							numBoxHi6.value = ([-1.0, 1.0, \cf5 \\linear\cf3 , 0.001, (abs((~paramArray.at(11)) - 1) ) / 2])\
+							.asSpec.map(slider6.hi);\
+							\};\
+			\
+			slider7.action = \{	\cf2 /*lowerAmp*/\cf3   ~paramArray.put(12, slider7.lo.value);\
+							\
+							numBoxLo7.value = ([0.0, 1.0, \cf5 \\linear\cf3 , 0.001, ~paramArray.at(12)])\
+							.asSpec.map(slider7.lo);\
+							\
+							\cf2 /*upperAmp*/\cf3   ~paramArray.put(13, slider7.hi.value); \
+							\
+							numBoxHi7.value = ([0.0, 1.0, \cf5 \\linear\cf3 , 0.001, ~paramArray.at(13)])\
+							.asSpec.map(slider7.hi);\
+							\};\
+\
+w.front; \cf2 // make window visible and front window.\cf3 \
+\
+)\
+\
+\
+\
+\cf2 ///////////////////////////////TEMP NOTES\cf3 \
+\
+\
+\cf2 ////////////////////setup communication with temp server\cf3 \
+(\
+n = \cf4 NetAddr\cf3 (\cf6 "127.0.0.1"\cf3 , 12000);\
+n.sendMsg(\cf6 "/temp/connect/57120/tempSC"\cf3 ); \cf2 // 57120 is sclang default port\cf3 \
+\
+r = \cf4 OSCresponder\cf3 (\cf4 nil\cf3 , \cf5 '/temp/ping'\cf3 , \{ \cf4 arg\cf3  time, resp, msg; \
+				\cf5 'ping'\cf3 .postln; \
+				n.sendMsg(\cf6 "/temp/pingreturn/57120"\cf3 );\}).add;\
+)\
+\
+\cf2 //=////////Controlling Director via Temp\cf3 \
+\
+n.sendMsg(\cf6 "/particles/numP"\cf3 , 250);\
+n.sendMsg(\cf6 "/particles/speed"\cf3 , 88);\
+n.sendBundle(0.2, [\cf6 "/particles/path"\cf3 , 1.91, 0.19, -15.13]);\
+n.sendMsg(\cf6 "/particles/pathStrength"\cf3 , 0.002);\
+n.sendMsg(\cf6 "/particles/drag"\cf3 , 1);\
+n.sendBundle(0.2, [\cf6 "/particles/gravity"\cf3 , 4.05, -50.48, 8.0]);\
+n.sendMsg(\cf6 "/particles/life"\cf3 , 9000);\
+\
+\cf2 //////////Disconnect\cf3 \
+\
+n.sendMsg(\cf6 "/temp/disconnect/57120"\cf3 );\
+\
+\
+\cf2 /////////\cf3 \
+}

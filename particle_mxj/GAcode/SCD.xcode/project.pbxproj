@@ -1,0 +1,241 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 39;
+	objects = {
+		07801BE607D31959006714D4 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.java;
+			path = SCD.java;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		07801BE707D31959006714D4 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.java;
+			path = SCDFitnessFunction.java;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		07801BE907D31959006714D4 = {
+			fileRef = 07801BE607D31959006714D4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		07801BEA07D31959006714D4 = {
+			fileRef = 07801BE707D31959006714D4;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		07B2B58707DA51E9002AF33A = {
+			isa = PBXFileReference;
+			lastKnownFileType = archive.jar;
+			name = jgap.jar;
+			path = /Users/carlos/Library/Java/Extensions/jgap_2/jgap.jar;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		07B2B58807DA51E9002AF33A = {
+			fileRef = 07B2B58707DA51E9002AF33A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+//070
+//071
+//072
+//073
+//074
+//150
+//151
+//152
+//153
+//154
+		15024AA405FFA94D0060F016 = {
+			children = (
+				07B2B58707DA51E9002AF33A,
+				07801BE607D31959006714D4,
+				07801BE707D31959006714D4,
+				15BA779B05FFB38E00E1B09F,
+				15024AC305FFAB9E0060F016,
+				15024AB405FFAA620060F016,
+			);
+			isa = PBXGroup;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		15024AA605FFA94D0060F016 = {
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			isa = PBXBuildStyle;
+			name = Development;
+		};
+		15024AA705FFA94D0060F016 = {
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+			};
+			isa = PBXBuildStyle;
+			name = Deployment;
+		};
+		15024AA805FFA94D0060F016 = {
+			buildSettings = {
+			};
+			buildStyles = (
+				15024AA605FFA94D0060F016,
+				15024AA705FFA94D0060F016,
+			);
+			hasScannedForEncodings = 1;
+			isa = PBXProject;
+			mainGroup = 15024AA405FFA94D0060F016;
+			productRefGroup = 15024AB405FFAA620060F016;
+			projectDirPath = "";
+			targets = (
+				15024ABA05FFAA930060F016,
+			);
+		};
+		15024AB405FFAA620060F016 = {
+			children = (
+				15024ABB05FFAA930060F016,
+			);
+			isa = PBXGroup;
+			name = Products;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		15024AB705FFAA930060F016 = {
+			buildActionMask = 2147483647;
+			files = (
+				07801BE907D31959006714D4,
+				07801BEA07D31959006714D4,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15024AB805FFAA930060F016 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXJavaArchiveBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15024AB905FFAA930060F016 = {
+			buildActionMask = 2147483647;
+			files = (
+				15024AC405FFAB9E0060F016,
+				07B2B58807DA51E9002AF33A,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15024ABA05FFAA930060F016 = {
+			buildPhases = (
+				15024AB705FFAA930060F016,
+				15024AB805FFAA930060F016,
+				15024AB905FFAA930060F016,
+				15024ABD05FFAAEF0060F016,
+				1576F8A905FFB5E200BB67E0,
+				15377A8205FFFD89003EAF12,
+			);
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				INSTALL_PATH = "/Library/Application Support/Cycling 74/java/classes/ga";
+				JAVA_ARCHIVE_CLASSES = NO;
+				JAVA_ARCHIVE_TYPE = JAR;
+				JAVA_COMPILER = /usr/bin/javac;
+				JAVA_COMPILER_DEPRECATED_WARNINGS = YES;
+				JAVA_SOURCE_SUBDIR = .;
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOL_FLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = classes;
+				PURE_JAVA = YES;
+				REZ_EXECUTABLE = YES;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
+			};
+			dependencies = (
+			);
+			isa = PBXLibraryTarget;
+			name = SCD;
+			productInstallPath = "/Library/Application Support/Cycling '74/java/classes/ga";
+			productName = HelloWorld;
+			productReference = 15024ABB05FFAA930060F016;
+		};
+		15024ABB05FFAA930060F016 = {
+			explicitFileType = "compiled.mach-o.dylib";
+			includeInIndex = 0;
+			isa = PBXFileReference;
+			path = classes;
+			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		15024ABD05FFAAEF0060F016 = {
+			buildActionMask = 2147483647;
+			dstPath = "/Library/Application Support/Cycling '74/java/classes/ga";
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			isa = PBXCopyFilesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15024AC305FFAB9E0060F016 = {
+			isa = PBXFileReference;
+			lastKnownFileType = archive.jar;
+			name = max.jar;
+			path = "/Library/Application Support/Cycling '74/java/lib/max.jar";
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		15024AC405FFAB9E0060F016 = {
+			fileRef = 15024AC305FFAB9E0060F016;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		15377A8205FFFD89003EAF12 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			isa = PBXShellScriptBuildPhase;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rm -r build";
+		};
+		1576F8A905FFB5E200BB67E0 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			isa = PBXShellScriptBuildPhase;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp build/classes/*.class \"/Library/Application Support/Cycling '74/java/classes/ga\"";
+		};
+		15BA779B05FFB38E00E1B09F = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = text;
+			path = readme.txt;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+	};
+	rootObject = 15024AA805FFA94D0060F016;
+}

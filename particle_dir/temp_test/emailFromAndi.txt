@@ -1,0 +1,78 @@
+
+
+in this zip file there is a temp.jar which is the TEMP server. start it 
+with either temp.bat or if you are on mac/linux start it from a 
+terminal using the temp.sh file.
+
+so the server will start and tell you something about which ports are 
+open for what. basically you will talk to the server over udp/osc on 
+port 12000 and over tcp/xml on port 13000
+
+there are some examples attached for director, flash, processing, max, 
+and pd.
+if you have specific questions how they work, let me know. just in 
+short how it works:
+
+each client udp/osc or tcp/xml has to connect to the server via 
+initialization message where it also tells the server which messages it 
+will respond to / basically which messages it wants to register so that 
+those messages are forwarded to it by the server.
+
+each udp/osc client needs one message that it has to send to the server 
+when it receives a message with the address pattern /temp/ping
+this message then looks like this /temp/pingreturn/51000 where 51000 is 
+the port the client is listening at for incoming messages. this is just 
+a message for the server to make sure a udp/osc client is still alive 
+and online. mkae sure this ping message looks like this:
+/temp/pingreturn/51000 (where 51000 is the port number the application 
+is listening for incoming messages) if you if you dont attach the port 
+number at the end of this message, the server will stop. _> bug
+
+to send a message to the  system that should for example reach a 
+destination with the address pattern /test would be send as /all/test 
+so that the server knows that it should distribute the message /test to 
+all connected clients that understand/have registered /test . the 
+prefix /all will be cut off from the server and the message will be 
+distributed as /test
+
+
+too late now, probably you will have questions, but perhaps you can 
+figure out some of the examples how they work or how the basic concept 
+of this system works.
+
+
+andi
+
+
+
+On Feb 14, 2005, at 9:56 AM, Carlos Castellanos wrote:
+
+> Hi Andi,
+>
+> Hope all is well.. I'm working on a project where I need to 
+> communicate between
+> Director and Max/MSP.  As there is now OSC for Director OSX, I thought 
+> TEMP
+> might be a good way to go.  Do you think I could get a copy of it?
+>
+> Thanks,
+> Carlos
+>
+>
+> --
+> Carlos Castellanos
+> ccastellanos@umail.ucsb.edu
+>
+>
+
+*
+
+andreas schlegel
+diplom kommunikations-designer, master of arts, master of science
+
+andi@sojamo.de
+http://www.sojamo.de
+
++49 175 895 8992
+
+
